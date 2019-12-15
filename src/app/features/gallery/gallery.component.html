@@ -1,5 +1,5 @@
 <nz-layout>
-  <nz-header class="gallery-header" >
+  <nz-header class="gallery-header">
     <nz-page-header nzTitle="My Gallery" [nzSubtitle]="'Here you can find all your media'"></nz-page-header>
   </nz-header>
   <nz-content style="min-height: 100vh;">
@@ -16,3 +16,48 @@
     </div>
   </nz-content>
 </nz-layout>
+
+<nz-drawer
+  nzWrapClassName="image-detail-drawer"
+  nzTitle="Image Info"
+  [nzBodyStyle]="{ height: 'calc(100% - 55px)', overflow: 'auto'}"
+  [nzVisible]="visible"
+  (nzOnClose)="onClose()"
+>
+  <div>
+    <nz-skeleton [nzActive]="true" [nzLoading]="loading" [nzParagraph]="{ rows: 10 }">
+      <nz-card [nzCover]="coverTemplate" [nzBordered]="false">
+        <nz-descriptions>
+          <nz-descriptions-item nzTitle="Id: "> {{selectedImage?.id}}</nz-descriptions-item>
+        </nz-descriptions>
+        <nz-descriptions>
+          <nz-descriptions-item nzTitle="Created at: "> {{selectedImage?.created_at | date}}</nz-descriptions-item>
+        </nz-descriptions>
+        <nz-descriptions>
+          <nz-descriptions-item nzTitle="Updated at: "> {{selectedImage?.updated_at | date}}</nz-descriptions-item>
+        </nz-descriptions>
+        <nz-descriptions>
+          <nz-descriptions-item nzTitle="Tags: ">
+            <nz-tag style="margin-bottom: 5px;" [nzColor]="'blue'" *ngFor="let tag of selectedImage?.tags">{{tag.title}}</nz-tag>
+          </nz-descriptions-item>
+        </nz-descriptions>
+        <ng-template #coverTemplate>
+          <img alt="example" src="{{selectedImage?.urls?.small}}"/>
+        </ng-template>
+      </nz-card>
+    </nz-skeleton>
+    <nz-divider></nz-divider>
+    <nz-skeleton [nzActive]="true" [nzLoading]="loading" [nzAvatar]="true">
+      <nz-card [nzBordered]="false">
+        <nz-card-meta
+          [nzAvatar]="avatarTemplate"
+          [nzTitle]="selectedImage?.user?.name"
+          [nzDescription]="selectedImage?.user?.bio"
+        ></nz-card-meta>
+        <ng-template #avatarTemplate>
+          <nz-avatar [nzSrc]="selectedImage?.user?.profile_image?.medium" nzSize="large"></nz-avatar>
+        </ng-template>
+      </nz-card>
+    </nz-skeleton>
+  </div>
+</nz-drawer>

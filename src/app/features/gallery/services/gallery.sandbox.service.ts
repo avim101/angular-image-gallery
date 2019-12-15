@@ -11,6 +11,12 @@ export class GallerySandboxService {
   constructor(private galleryService: GalleryService) {
   }
 
+  /**
+   * get a pager options and return img card object
+   * @param page
+   * @param perPage
+   * @param orderBy
+   */
   public getList(page: number = 1, perPage: number = 10, orderBy: 'latest' | 'oldest' | 'popular' = 'latest'): Promise<ImageCard[]> {
     return this.galleryService.getList(page, perPage, orderBy)
       .then(res => res.map((img) => {
@@ -22,6 +28,10 @@ export class GallerySandboxService {
           alt: img.alt_description
         };
       }));
+  }
+
+  public getPhoto(id: string){
+    return this.galleryService.getPhoto(id);
   }
 
 }

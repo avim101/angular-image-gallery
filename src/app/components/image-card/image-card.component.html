@@ -1,6 +1,6 @@
-<nz-card [nzBordered]="false"
-         [nzCover]="coverTemplate"
+<nz-card [nzCover]="coverTemplate"
          [nzActions]="[actionSetting, actionEdit, actionEllipsis]"
+         [nzHoverable]="true"
 >
   <nz-card-meta
     nzTitle="{{image.title}}"
@@ -8,7 +8,7 @@
 </nz-card>
 <ng-template #coverTemplate>
   <img src="{{image.pixelSrc}}"/>
-  <img lazyLoad="{{image.src}}" alt="">
+  <img lazyLoad="{{image.src}}">
 </ng-template>
 <ng-template #actionSetting>
   <i nz-icon nzType="delete" (click)="onDeleted(image)"></i>

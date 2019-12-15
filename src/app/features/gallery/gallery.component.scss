@@ -1,5 +1,10 @@
-:host {
- .gallery-header{
-   background: transparent;
- }
+.gallery-header {
+  background: transparent;
 }
+
+.image-detail-drawer {
+  width: 100%!important;
+  max-width: 400px;
+}
+
+

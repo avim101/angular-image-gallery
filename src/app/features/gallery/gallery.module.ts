@@ -28,7 +28,7 @@ const icons: IconDefinition[] = [ DeleteOutline, EditOutline, MoreOutline ];
   imports: [
     CommonModule,
     GalleryRoutingModule,
-    LazyLoadImageModule,
+    LazyLoadImageModule.forRoot({}),
     ReactiveFormsModule,
     NgZorroAntdModule
   ],

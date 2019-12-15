@@ -50,4 +50,9 @@ export class ImageService {
   public getList(page: number = 1, perPage: number = 10, orderBy: 'latest' | 'oldest' | 'popular' = 'latest'): Promise<any> {
     return this.api.photos.listPhotos(page, perPage, orderBy).then(toJson);
   }
+
+  public getPhoto(id: string): Promise<any> {
+    return this.api.photos.getPhoto(id).then(toJson);
+  }
+
 }

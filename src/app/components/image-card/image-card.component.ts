@@ -45,21 +45,37 @@ export class ImageCardComponent implements OnInit {
   constructor(private formBuilder: FormBuilder) {
   }
 
+  /**
+   * angular init hook
+   */
   ngOnInit() {
     this.titleForm = this.formBuilder.group({
       title: [ this.image.title, Validators.required ],
     });
   }
 
+  /**
+   * emit the deleted img when delete icon is clicked
+   * @param image
+   */
   public onDeleted(image: ImageCard) {
     this.deleted.emit(image);
   }
 
+  /**
+   * emit the deleted img when show more icon is clicked
+   * @param image
+   */
   public onShowMore(image: ImageCard) {
     this.showMore.emit(image);
   }
 
-  submitForm(image: ImageCard) {
+  /**
+   * emit the editable img with the text to replace the title
+   * emit only if the form is valid
+   * @param image
+   */
+  public submitForm(image: ImageCard) {
     if (this.titleForm.valid) {
       this.showPopover = false;
       // fire title changed with the new value

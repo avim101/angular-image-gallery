@@ -8,7 +8,6 @@
     left: 0;
     top: 0;
     max-width: 100%;
-    height: inherit;
   }
 
 
@@ -25,27 +24,21 @@
     .ant-card-actions {
       background: transparent;
       border-top: none;
-
-      > li {
-        i {
-          color: $appBlue;
-        }
-      }
     }
 
     .ant-card-body {
-      background: #000;
-      opacity: .5;
-      margin-top: -65px;
+      background: #f0f2f5;
+      opacity: 1;
+      margin-top: -64px;
+      position: relative;
     }
 
-    .ant-card-meta-title {
-      color: #FFFFFF;
-    }
 
     .ant-card-cover {
       width: auto;
       height: 250px;
+      position: relative;
+      overflow: hidden;
     }
   }
 }
