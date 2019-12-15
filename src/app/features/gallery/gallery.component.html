@@ -1,10 +1,10 @@
-<nz-layout>
+<nz-layout class="gallery-page">
   <nz-header class="gallery-header">
     <nz-page-header nzTitle="My Gallery" [nzSubtitle]="'Here you can find all your media'"></nz-page-header>
   </nz-header>
   <nz-spin nzTip="Loading..." [nzSpinning]="listLoading" [nzDelay]="500">
-    <nz-content style="min-height: 100vh;">
-      <div nz-row style="max-width: 1280px; margin: 0 auto;">
+    <nz-content class="gallery-content" infiniteScroll (scrolled)="loadMore()">
+      <div nz-row class="img-list-container">
         <div nz-col nzXs="12" nzSm="12" nzMd="8" nzLg="6" nzXl="6"
              style=" padding: 15px; float: left!important;"
              *ngFor="let img of imgList">
@@ -14,6 +14,15 @@
                           (titleChanged)="onTitleChanged($event)">
           </app-image-card>
         </div>
+        <button
+          *ngIf="loadMoreSpinner"
+          class="loading-button"
+          nz-button nzType="link"
+          nzLoading="true"
+          nzSize="large"
+          nzBlock="'true'">
+          Loading...
+        </button>
       </div>
     </nz-content>
   </nz-spin>

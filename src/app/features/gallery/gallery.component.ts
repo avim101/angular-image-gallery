@@ -5,6 +5,8 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { ImageCard } from '../../components/image-card';
 import { GallerySandboxService } from './services/gallery.sandbox.service';
 
+const ITEMS_PER_PAGE = 12;
+
 @Component({
   selector: 'app-gallery',
   templateUrl: './gallery.component.html',
@@ -15,27 +17,34 @@ export class GalleryComponent implements OnInit {
   /**
    * array of images to display
    */
-  imgList: ImageCard[] = [];
+  public imgList: ImageCard[] = [];
 
   /**
    * selected image for show more details
    */
-  selectedImg: any = null;
+  public selectedImg: any = null;
 
   /**
    * show / hide img overlay
    */
-  visible = false;
+  public visible = false;
 
   /**
    * loader when getting selected img details
    */
-  loadingImg = false;
+  public loadingImg = false;
 
   /**
    * loader when getting the lis of img
    */
-  listLoading = true;
+  public listLoading = true;
+
+  /**
+   * infinite scroll loader
+   */
+  public loadMoreSpinner = false;
+
+  private pageNumber = 1;
 
   constructor(private sandbox: GallerySandboxService) {
 
@@ -43,7 +52,7 @@ export class GalleryComponent implements OnInit {
 
   async ngOnInit() {
     try {
-      this.imgList = await this.sandbox.getList(1, 100);
+      this.imgList = await this.sandbox.getList(this.pageNumber, ITEMS_PER_PAGE);
     } catch (e) {
       // error handling
     }
@@ -92,8 +101,23 @@ export class GalleryComponent implements OnInit {
    * a cb for the overlay close event
    * close overlay and init selected image
    */
-  onClose() {
+  public onClose() {
     this.visible = false;
     this.selectedImg = null;
+  }
+
+  /**
+   * load more images when scroll is getting to the distance
+   */
+  public async loadMore() {
+    let imgs = [];
+    this.loadMoreSpinner = true;
+    try {
+      imgs = await this.sandbox.getList(++this.pageNumber, ITEMS_PER_PAGE);
+      this.imgList = this.imgList.concat(imgs);
+    } catch (e) {
+      // error
+    }
+    this.loadMoreSpinner = false;
   }
 }

@@ -11,6 +11,7 @@ import {
 import { DeleteOutline, EditOutline, MoreOutline } from '@ant-design/icons-angular/icons';
 import { IconDefinition } from '@ant-design/icons-angular';
 import { LazyLoadImageModule } from 'ng-lazyload-image';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 // APP
 import { GalleryComponent } from './gallery.component';
@@ -30,7 +31,8 @@ const icons: IconDefinition[] = [ DeleteOutline, EditOutline, MoreOutline ];
     GalleryRoutingModule,
     LazyLoadImageModule.forRoot({}),
     ReactiveFormsModule,
-    NgZorroAntdModule
+    NgZorroAntdModule,
+    InfiniteScrollModule
   ],
   providers: [
     {
