@@ -489,7 +489,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         /***/ (function (module, __webpack_exports__, __webpack_require__) {
             "use strict";
             __webpack_require__.r(__webpack_exports__);
-            /* harmony default export */ __webpack_exports__["default"] = ("<nz-card [nzBordered]=\"false\"\n         [nzCover]=\"coverTemplate\"\n         [nzActions]=\"[actionSetting, actionEdit, actionEllipsis]\"\n>\n  <nz-card-meta\n    nzTitle=\"{{image.title}}\"\n  ></nz-card-meta>\n</nz-card>\n<ng-template #coverTemplate>\n  <img src=\"{{image.pixelSrc}}\"/>\n  <img lazyLoad=\"{{image.src}}\" alt=\"\">\n</ng-template>\n<ng-template #actionSetting>\n  <i nz-icon nzType=\"delete\" (click)=\"onDeleted(image)\"></i>\n</ng-template>\n<ng-template #actionEdit>\n  <i nz-icon nzType=\"edit\"\n     nz-popover\n     [nzPopoverContent]=\"editImageTitleTemplate\"\n     [(nzVisible)]=\"showPopover\"\n     nzTitle=\"Edit image title\"\n     nzPopoverTrigger=\"click\">\n  </i>\n</ng-template>\n<ng-template #actionEllipsis>\n  <i nz-icon nzType=\"more\" (click)=\"onShowMore(image)\"></i>\n</ng-template>\n\n<ng-template #editImageTitleTemplate>\n  <form nz-form [formGroup]=\"titleForm\" (ngSubmit)=\"submitForm(image)\" class=\"image-title-form\">\n    <nz-form-item>\n      <nz-form-control nzErrorTip=\"The title cant be empty\">\n        <input type=\"text\" nz-input formControlName=\"title\" placeholder=\"Insert title\" autofocus/>\n      </nz-form-control>\n    </nz-form-item>\n    <nz-form-item>\n      <nz-form-control>\n        <button nz-button nzType=\"primary\" style=\"float: right;\" [disabled]=\"titleForm.invalid\">Change</button>\n      </nz-form-control>\n    </nz-form-item>\n  </form>\n</ng-template>\n");
+            /* harmony default export */ __webpack_exports__["default"] = ("<nz-card [nzCover]=\"coverTemplate\"\n         [nzActions]=\"[actionSetting, actionEdit, actionEllipsis]\"\n         [nzHoverable]=\"true\"\n>\n  <nz-card-meta\n    nzTitle=\"{{img.title}}\"\n  ></nz-card-meta>\n</nz-card>\n<ng-template #coverTemplate>\n  <img src=\"{{img.pixelSrc}}\"/>\n  <img lazyLoad=\"{{img.src}}\">\n</ng-template>\n<ng-template #actionSetting>\n  <i nz-icon nzType=\"delete\" (click)=\"onDeleted(img)\"></i>\n</ng-template>\n<ng-template #actionEdit>\n  <i nz-icon nzType=\"edit\"\n     nz-popover\n     [nzPopoverContent]=\"editImageTitleTemplate\"\n     [(nzVisible)]=\"showPopover\"\n     nzTitle=\"Edit image title\"\n     nzPopoverTrigger=\"click\">\n  </i>\n</ng-template>\n<ng-template #actionEllipsis>\n  <i nz-icon nzType=\"more\" (click)=\"onShowMore(img)\"></i>\n</ng-template>\n\n<ng-template #editImageTitleTemplate>\n  <form nz-form [formGroup]=\"titleForm\" (ngSubmit)=\"submitForm(img)\" class=\"image-title-form\">\n    <nz-form-item>\n      <nz-form-control nzErrorTip=\"The title cant be empty\">\n        <input type=\"text\" nz-input formControlName=\"title\" placeholder=\"Insert title\" autofocus/>\n      </nz-form-control>\n    </nz-form-item>\n    <nz-form-item>\n      <nz-form-control>\n        <button nz-button nzType=\"primary\" style=\"float: right;\" [disabled]=\"titleForm.invalid\">Change</button>\n      </nz-form-control>\n    </nz-form-item>\n  </form>\n</ng-template>\n");
             /***/ 
         }),
         /***/ "./node_modules/raw-loader/dist/cjs.js!./src/app/features/gallery/gallery.component.html": 
@@ -500,7 +500,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         /***/ (function (module, __webpack_exports__, __webpack_require__) {
             "use strict";
             __webpack_require__.r(__webpack_exports__);
-            /* harmony default export */ __webpack_exports__["default"] = ("<nz-layout>\n  <nz-header class=\"gallery-header\" >\n    <nz-page-header nzTitle=\"My Gallery\" [nzSubtitle]=\"'Here you can find all your media'\"></nz-page-header>\n  </nz-header>\n  <nz-content style=\"min-height: 100vh;\">\n    <div nz-row style=\"max-width: 1280px; margin: 0 auto;\">\n      <div nz-col nzXs=\"12\" nzSm=\"12\" nzMd=\"8\" nzLg=\"6\" nzXl=\"6\"\n           style=\" padding: 15px; float: left!important;\"\n           *ngFor=\"let img of images\">\n        <app-image-card [image]=\"img\"\n                        (deleted)=\"onDelete($event)\"\n                        (showMore)=\"onShowMore($event)\"\n                        (titleChanged)=\"onTitleChanged($event)\">\n        </app-image-card>\n      </div>\n    </div>\n  </nz-content>\n</nz-layout>\n");
+            /* harmony default export */ __webpack_exports__["default"] = ("<nz-layout>\n  <nz-header class=\"gallery-header\">\n    <nz-page-header nzTitle=\"My Gallery\" [nzSubtitle]=\"'Here you can find all your media'\"></nz-page-header>\n  </nz-header>\n  <nz-spin nzTip=\"Loading...\" [nzSpinning]=\"listLoading\" [nzDelay]=\"500\">\n    <nz-content style=\"min-height: 100vh;\">\n      <div nz-row style=\"max-width: 1280px; margin: 0 auto;\">\n        <div nz-col nzXs=\"12\" nzSm=\"12\" nzMd=\"8\" nzLg=\"6\" nzXl=\"6\"\n             style=\" padding: 15px; float: left!important;\"\n             *ngFor=\"let img of imgList\">\n          <app-image-card [img]=\"img\"\n                          (deleted)=\"onDelete($event)\"\n                          (showMore)=\"onShowMore($event)\"\n                          (titleChanged)=\"onTitleChanged($event)\">\n          </app-image-card>\n        </div>\n      </div>\n    </nz-content>\n  </nz-spin>\n</nz-layout>\n\n<nz-drawer\n  nzWrapClassName=\"image-detail-drawer\"\n  nzTitle=\"Image Info\"\n  [nzBodyStyle]=\"{ height: 'calc(100% - 55px)', overflow: 'auto'}\"\n  [nzVisible]=\"visible\"\n  (nzOnClose)=\"onClose()\"\n>\n  <div>\n    <nz-skeleton [nzActive]=\"true\" [nzLoading]=\"loadingImg\" [nzParagraph]=\"{ rows: 10 }\">\n      <nz-card [nzCover]=\"coverTemplate\" [nzBordered]=\"false\">\n        <nz-descriptions>\n          <nz-descriptions-item nzTitle=\"Id: \"> {{selectedImg?.id}}</nz-descriptions-item>\n        </nz-descriptions>\n        <nz-descriptions>\n          <nz-descriptions-item nzTitle=\"Created at: \"> {{selectedImg?.created_at | date}}</nz-descriptions-item>\n        </nz-descriptions>\n        <nz-descriptions>\n          <nz-descriptions-item nzTitle=\"Updated at: \"> {{selectedImg?.updated_at | date}}</nz-descriptions-item>\n        </nz-descriptions>\n        <nz-descriptions>\n          <nz-descriptions-item nzTitle=\"Tags: \">\n            <nz-tag style=\"margin-bottom: 5px;\" [nzColor]=\"'blue'\"\n                    *ngFor=\"let tag of selectedImg?.tags\">{{tag.title}}</nz-tag>\n          </nz-descriptions-item>\n        </nz-descriptions>\n        <ng-template #coverTemplate>\n          <img alt=\"example\" src=\"{{selectedImg?.urls?.small}}\"/>\n        </ng-template>\n      </nz-card>\n    </nz-skeleton>\n    <nz-divider></nz-divider>\n    <nz-skeleton [nzActive]=\"true\" [nzLoading]=\"loadingImg\" [nzAvatar]=\"true\">\n      <nz-card [nzBordered]=\"false\">\n        <nz-card-meta\n          [nzAvatar]=\"avatarTemplate\"\n          [nzTitle]=\"selectedImg?.user?.name\"\n          [nzDescription]=\"selectedImg?.user?.bio\"\n        ></nz-card-meta>\n        <ng-template #avatarTemplate>\n          <nz-avatar [nzSrc]=\"selectedImg?.user?.profile_image?.medium\" nzSize=\"large\"></nz-avatar>\n        </ng-template>\n      </nz-card>\n    </nz-skeleton>\n  </div>\n</nz-drawer>\n");
             /***/ 
         }),
         /***/ "./src/app/components/image-card/image-card.component.scss": 
@@ -511,7 +511,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         /***/ (function (module, __webpack_exports__, __webpack_require__) {
             "use strict";
             __webpack_require__.r(__webpack_exports__);
-            /* harmony default export */ __webpack_exports__["default"] = (":host {\n  width: 100%;\n}\n:host img {\n  position: absolute;\n  left: 0;\n  top: 0;\n  max-width: 100%;\n  height: inherit;\n}\n:host .ng-lazyloaded {\n  opacity: 1;\n}\n:host ::ng-deep .ant-card {\n  background: transparent;\n}\n:host ::ng-deep .ant-card-actions {\n  background: transparent;\n  border-top: none;\n}\n:host ::ng-deep .ant-card-actions > li i {\n  color: #1976d2;\n}\n:host ::ng-deep .ant-card-body {\n  background: #000;\n  opacity: 0.5;\n  margin-top: -65px;\n}\n:host ::ng-deep .ant-card-meta-title {\n  color: #FFFFFF;\n}\n:host ::ng-deep .ant-card-cover {\n  width: auto;\n  height: 250px;\n}\n.image-title-form {\n  width: 260px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9hdmltYXNsYXRpMS9wcm9qZWN0cy9jbG91ZGluYXJ5L3NyYy9hcHAvY29tcG9uZW50cy9pbWFnZS1jYXJkL2ltYWdlLWNhcmQuY29tcG9uZW50LnNjc3MiLCJzcmMvYXBwL2NvbXBvbmVudHMvaW1hZ2UtY2FyZC9pbWFnZS1jYXJkLmNvbXBvbmVudC5zY3NzIiwiL1VzZXJzL2F2aW1hc2xhdGkxL3Byb2plY3RzL2Nsb3VkaW5hcnkvc3JjL3ZhcmlhYmxlcy5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUVBO0VBQ0UsV0FBQTtBQ0RGO0FER0U7RUFDRSxrQkFBQTtFQUNBLE9BQUE7RUFDQSxNQUFBO0VBQ0EsZUFBQTtFQUNBLGVBQUE7QUNESjtBREtFO0VBQ0UsVUFBQTtBQ0hKO0FEUUk7RUFDRSx1QkFBQTtBQ05OO0FEU0k7RUFDRSx1QkFBQTtFQUNBLGdCQUFBO0FDUE47QURVUTtFQUNFLGNFOUJBO0FEc0JWO0FEYUk7RUFDRSxnQkFBQTtFQUNBLFlBQUE7RUFDQSxpQkFBQTtBQ1hOO0FEY0k7RUFDRSxjQUFBO0FDWk47QURlSTtFQUNFLFdBQUE7RUFDQSxhQUFBO0FDYk47QURrQkE7RUFDRSxZQUFBO0FDZkYiLCJmaWxlIjoic3JjL2FwcC9jb21wb25lbnRzL2ltYWdlLWNhcmQvaW1hZ2UtY2FyZC5jb21wb25lbnQuc2NzcyIsInNvdXJjZXNDb250ZW50IjpbIkBpbXBvcnQgXCIuLi8uLi8uLi92YXJpYWJsZXNcIjtcblxuOmhvc3Qge1xuICB3aWR0aDogMTAwJTtcblxuICBpbWcge1xuICAgIHBvc2l0aW9uOiBhYnNvbHV0ZTtcbiAgICBsZWZ0OiAwO1xuICAgIHRvcDogMDtcbiAgICBtYXgtd2lkdGg6IDEwMCU7XG4gICAgaGVpZ2h0OiBpbmhlcml0O1xuICB9XG5cblxuICAubmctbGF6eWxvYWRlZCB7XG4gICAgb3BhY2l0eTogMTtcbiAgfVxuXG4gIDo6bmctZGVlcCB7XG5cbiAgICAuYW50LWNhcmQge1xuICAgICAgYmFja2dyb3VuZDogdHJhbnNwYXJlbnQ7XG4gICAgfVxuXG4gICAgLmFudC1jYXJkLWFjdGlvbnMge1xuICAgICAgYmFja2dyb3VuZDogdHJhbnNwYXJlbnQ7XG4gICAgICBib3JkZXItdG9wOiBub25lO1xuXG4gICAgICA+IGxpIHtcbiAgICAgICAgaSB7XG4gICAgICAgICAgY29sb3I6ICRhcHBCbHVlO1xuICAgICAgICB9XG4gICAgICB9XG4gICAgfVxuXG4gICAgLmFudC1jYXJkLWJvZHkge1xuICAgICAgYmFja2dyb3VuZDogIzAwMDtcbiAgICAgIG9wYWNpdHk6IC41O1xuICAgICAgbWFyZ2luLXRvcDogLTY1cHg7XG4gICAgfVxuXG4gICAgLmFudC1jYXJkLW1ldGEtdGl0bGUge1xuICAgICAgY29sb3I6ICNGRkZGRkY7XG4gICAgfVxuXG4gICAgLmFudC1jYXJkLWNvdmVyIHtcbiAgICAgIHdpZHRoOiBhdXRvO1xuICAgICAgaGVpZ2h0OiAyNTBweDtcbiAgICB9XG4gIH1cbn1cblxuLmltYWdlLXRpdGxlLWZvcm0ge1xuICB3aWR0aDogMjYwcHg7XG59XG4iLCI6aG9zdCB7XG4gIHdpZHRoOiAxMDAlO1xufVxuOmhvc3QgaW1nIHtcbiAgcG9zaXRpb246IGFic29sdXRlO1xuICBsZWZ0OiAwO1xuICB0b3A6IDA7XG4gIG1heC13aWR0aDogMTAwJTtcbiAgaGVpZ2h0OiBpbmhlcml0O1xufVxuOmhvc3QgLm5nLWxhenlsb2FkZWQge1xuICBvcGFjaXR5OiAxO1xufVxuOmhvc3QgOjpuZy1kZWVwIC5hbnQtY2FyZCB7XG4gIGJhY2tncm91bmQ6IHRyYW5zcGFyZW50O1xufVxuOmhvc3QgOjpuZy1kZWVwIC5hbnQtY2FyZC1hY3Rpb25zIHtcbiAgYmFja2dyb3VuZDogdHJhbnNwYXJlbnQ7XG4gIGJvcmRlci10b3A6IG5vbmU7XG59XG46aG9zdCA6Om5nLWRlZXAgLmFudC1jYXJkLWFjdGlvbnMgPiBsaSBpIHtcbiAgY29sb3I6ICMxOTc2ZDI7XG59XG46aG9zdCA6Om5nLWRlZXAgLmFudC1jYXJkLWJvZHkge1xuICBiYWNrZ3JvdW5kOiAjMDAwO1xuICBvcGFjaXR5OiAwLjU7XG4gIG1hcmdpbi10b3A6IC02NXB4O1xufVxuOmhvc3QgOjpuZy1kZWVwIC5hbnQtY2FyZC1tZXRhLXRpdGxlIHtcbiAgY29sb3I6ICNGRkZGRkY7XG59XG46aG9zdCA6Om5nLWRlZXAgLmFudC1jYXJkLWNvdmVyIHtcbiAgd2lkdGg6IGF1dG87XG4gIGhlaWdodDogMjUwcHg7XG59XG5cbi5pbWFnZS10aXRsZS1mb3JtIHtcbiAgd2lkdGg6IDI2MHB4O1xufSIsIiRhcHBCbHVlOiAjMTk3NmQyO1xuIl19 */");
+            /* harmony default export */ __webpack_exports__["default"] = (":host {\n  width: 100%;\n}\n:host img {\n  position: absolute;\n  left: 0;\n  top: 0;\n  max-width: 100%;\n}\n:host .ng-lazyloaded {\n  opacity: 1;\n}\n:host ::ng-deep .ant-card {\n  background: transparent;\n}\n:host ::ng-deep .ant-card-actions {\n  background: transparent;\n  border-top: none;\n}\n:host ::ng-deep .ant-card-body {\n  background: #f0f2f5;\n  opacity: 1;\n  margin-top: -64px;\n  position: relative;\n}\n:host ::ng-deep .ant-card-cover {\n  width: auto;\n  height: 250px;\n  position: relative;\n  overflow: hidden;\n}\n.image-title-form {\n  width: 260px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9hdmltYXNsYXRpMS9wcm9qZWN0cy9jbG91ZGluYXJ5L3NyYy9hcHAvY29tcG9uZW50cy9pbWFnZS1jYXJkL2ltYWdlLWNhcmQuY29tcG9uZW50LnNjc3MiLCJzcmMvYXBwL2NvbXBvbmVudHMvaW1hZ2UtY2FyZC9pbWFnZS1jYXJkLmNvbXBvbmVudC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUVBO0VBQ0UsV0FBQTtBQ0RGO0FER0U7RUFDRSxrQkFBQTtFQUNBLE9BQUE7RUFDQSxNQUFBO0VBQ0EsZUFBQTtBQ0RKO0FES0U7RUFDRSxVQUFBO0FDSEo7QURRSTtFQUNFLHVCQUFBO0FDTk47QURTSTtFQUNFLHVCQUFBO0VBQ0EsZ0JBQUE7QUNQTjtBRFVJO0VBQ0UsbUJBQUE7RUFDQSxVQUFBO0VBQ0EsaUJBQUE7RUFDQSxrQkFBQTtBQ1JOO0FEWUk7RUFDRSxXQUFBO0VBQ0EsYUFBQTtFQUNBLGtCQUFBO0VBQ0EsZ0JBQUE7QUNWTjtBRGVBO0VBQ0UsWUFBQTtBQ1pGIiwiZmlsZSI6InNyYy9hcHAvY29tcG9uZW50cy9pbWFnZS1jYXJkL2ltYWdlLWNhcmQuY29tcG9uZW50LnNjc3MiLCJzb3VyY2VzQ29udGVudCI6WyJAaW1wb3J0IFwiLi4vLi4vLi4vdmFyaWFibGVzXCI7XG5cbjpob3N0IHtcbiAgd2lkdGg6IDEwMCU7XG5cbiAgaW1nIHtcbiAgICBwb3NpdGlvbjogYWJzb2x1dGU7XG4gICAgbGVmdDogMDtcbiAgICB0b3A6IDA7XG4gICAgbWF4LXdpZHRoOiAxMDAlO1xuICB9XG5cblxuICAubmctbGF6eWxvYWRlZCB7XG4gICAgb3BhY2l0eTogMTtcbiAgfVxuXG4gIDo6bmctZGVlcCB7XG5cbiAgICAuYW50LWNhcmQge1xuICAgICAgYmFja2dyb3VuZDogdHJhbnNwYXJlbnQ7XG4gICAgfVxuXG4gICAgLmFudC1jYXJkLWFjdGlvbnMge1xuICAgICAgYmFja2dyb3VuZDogdHJhbnNwYXJlbnQ7XG4gICAgICBib3JkZXItdG9wOiBub25lO1xuICAgIH1cblxuICAgIC5hbnQtY2FyZC1ib2R5IHtcbiAgICAgIGJhY2tncm91bmQ6ICNmMGYyZjU7XG4gICAgICBvcGFjaXR5OiAxO1xuICAgICAgbWFyZ2luLXRvcDogLTY0cHg7XG4gICAgICBwb3NpdGlvbjogcmVsYXRpdmU7XG4gICAgfVxuXG5cbiAgICAuYW50LWNhcmQtY292ZXIge1xuICAgICAgd2lkdGg6IGF1dG87XG4gICAgICBoZWlnaHQ6IDI1MHB4O1xuICAgICAgcG9zaXRpb246IHJlbGF0aXZlO1xuICAgICAgb3ZlcmZsb3c6IGhpZGRlbjtcbiAgICB9XG4gIH1cbn1cblxuLmltYWdlLXRpdGxlLWZvcm0ge1xuICB3aWR0aDogMjYwcHg7XG59XG4iLCI6aG9zdCB7XG4gIHdpZHRoOiAxMDAlO1xufVxuOmhvc3QgaW1nIHtcbiAgcG9zaXRpb246IGFic29sdXRlO1xuICBsZWZ0OiAwO1xuICB0b3A6IDA7XG4gIG1heC13aWR0aDogMTAwJTtcbn1cbjpob3N0IC5uZy1sYXp5bG9hZGVkIHtcbiAgb3BhY2l0eTogMTtcbn1cbjpob3N0IDo6bmctZGVlcCAuYW50LWNhcmQge1xuICBiYWNrZ3JvdW5kOiB0cmFuc3BhcmVudDtcbn1cbjpob3N0IDo6bmctZGVlcCAuYW50LWNhcmQtYWN0aW9ucyB7XG4gIGJhY2tncm91bmQ6IHRyYW5zcGFyZW50O1xuICBib3JkZXItdG9wOiBub25lO1xufVxuOmhvc3QgOjpuZy1kZWVwIC5hbnQtY2FyZC1ib2R5IHtcbiAgYmFja2dyb3VuZDogI2YwZjJmNTtcbiAgb3BhY2l0eTogMTtcbiAgbWFyZ2luLXRvcDogLTY0cHg7XG4gIHBvc2l0aW9uOiByZWxhdGl2ZTtcbn1cbjpob3N0IDo6bmctZGVlcCAuYW50LWNhcmQtY292ZXIge1xuICB3aWR0aDogYXV0bztcbiAgaGVpZ2h0OiAyNTBweDtcbiAgcG9zaXRpb246IHJlbGF0aXZlO1xuICBvdmVyZmxvdzogaGlkZGVuO1xufVxuXG4uaW1hZ2UtdGl0bGUtZm9ybSB7XG4gIHdpZHRoOiAyNjBweDtcbn0iXX0= */");
             /***/ 
         }),
         /***/ "./src/app/components/image-card/image-card.component.ts": 
@@ -547,22 +547,38 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
                      */
                     this.showMore = new _angular_core__WEBPACK_IMPORTED_MODULE_1__["EventEmitter"]();
                 }
+                /**
+                 * angular init hook
+                 */
                 ImageCardComponent.prototype.ngOnInit = function () {
                     this.titleForm = this.formBuilder.group({
-                        title: [this.image.title, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
+                        title: [this.img.title, _angular_forms__WEBPACK_IMPORTED_MODULE_2__["Validators"].required],
                     });
                 };
-                ImageCardComponent.prototype.onDeleted = function (image) {
-                    this.deleted.emit(image);
+                /**
+                 * emit the deleted img when delete icon is clicked
+                 * @param img
+                 */
+                ImageCardComponent.prototype.onDeleted = function (img) {
+                    this.deleted.emit(img);
                 };
-                ImageCardComponent.prototype.onShowMore = function (image) {
-                    this.showMore.emit(image);
+                /**
+                 * emit the deleted img when show more icon is clicked
+                 * @param img
+                 */
+                ImageCardComponent.prototype.onShowMore = function (img) {
+                    this.showMore.emit(img);
                 };
-                ImageCardComponent.prototype.submitForm = function (image) {
+                /**
+                 * emit the editable img with the text to replace the title
+                 * emit only if the form is valid
+                 * @param img
+                 */
+                ImageCardComponent.prototype.submitForm = function (img) {
                     if (this.titleForm.valid) {
                         this.showPopover = false;
                         // fire title changed with the new value
-                        this.titleChanged.emit({ image: image, title: this.titleForm.controls['title'].value });
+                        this.titleChanged.emit({ img: img, title: this.titleForm.controls['title'].value });
                     }
                 };
                 return ImageCardComponent;
@@ -572,7 +588,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
             ]; };
             tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
                 Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Input"])()
-            ], ImageCardComponent.prototype, "image", void 0);
+            ], ImageCardComponent.prototype, "img", void 0);
             tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
                 Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Output"])()
             ], ImageCardComponent.prototype, "titleChanged", void 0);
@@ -653,7 +669,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         /***/ (function (module, __webpack_exports__, __webpack_require__) {
             "use strict";
             __webpack_require__.r(__webpack_exports__);
-            /* harmony default export */ __webpack_exports__["default"] = (":host .gallery-header {\n  background: transparent;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9hdmltYXNsYXRpMS9wcm9qZWN0cy9jbG91ZGluYXJ5L3NyYy9hcHAvZmVhdHVyZXMvZ2FsbGVyeS9nYWxsZXJ5LmNvbXBvbmVudC5zY3NzIiwic3JjL2FwcC9mZWF0dXJlcy9nYWxsZXJ5L2dhbGxlcnkuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQ0M7RUFDRSx1QkFBQTtBQ0FIIiwiZmlsZSI6InNyYy9hcHAvZmVhdHVyZXMvZ2FsbGVyeS9nYWxsZXJ5LmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiOmhvc3Qge1xuIC5nYWxsZXJ5LWhlYWRlcntcbiAgIGJhY2tncm91bmQ6IHRyYW5zcGFyZW50O1xuIH1cbn1cbiIsIjpob3N0IC5nYWxsZXJ5LWhlYWRlciB7XG4gIGJhY2tncm91bmQ6IHRyYW5zcGFyZW50O1xufSJdfQ== */");
+            /* harmony default export */ __webpack_exports__["default"] = (".gallery-header {\n  background: transparent;\n}\n\n.image-detail-drawer {\n  width: 100% !important;\n  max-width: 400px;\n}\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi9Vc2Vycy9hdmltYXNsYXRpMS9wcm9qZWN0cy9jbG91ZGluYXJ5L3NyYy9hcHAvZmVhdHVyZXMvZ2FsbGVyeS9nYWxsZXJ5LmNvbXBvbmVudC5zY3NzIiwic3JjL2FwcC9mZWF0dXJlcy9nYWxsZXJ5L2dhbGxlcnkuY29tcG9uZW50LnNjc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7RUFDRSx1QkFBQTtBQ0NGOztBREVBO0VBQ0Usc0JBQUE7RUFDQSxnQkFBQTtBQ0NGIiwiZmlsZSI6InNyYy9hcHAvZmVhdHVyZXMvZ2FsbGVyeS9nYWxsZXJ5LmNvbXBvbmVudC5zY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLmdhbGxlcnktaGVhZGVyIHtcbiAgYmFja2dyb3VuZDogdHJhbnNwYXJlbnQ7XG59XG5cbi5pbWFnZS1kZXRhaWwtZHJhd2VyIHtcbiAgd2lkdGg6IDEwMCUhaW1wb3J0YW50O1xuICBtYXgtd2lkdGg6IDQwMHB4O1xufVxuXG5cbiIsIi5nYWxsZXJ5LWhlYWRlciB7XG4gIGJhY2tncm91bmQ6IHRyYW5zcGFyZW50O1xufVxuXG4uaW1hZ2UtZGV0YWlsLWRyYXdlciB7XG4gIHdpZHRoOiAxMDAlICFpbXBvcnRhbnQ7XG4gIG1heC13aWR0aDogNDAwcHg7XG59Il19 */");
             /***/ 
         }),
         /***/ "./src/app/features/gallery/gallery.component.ts": 
@@ -672,7 +688,26 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
             var GalleryComponent = /** @class */ (function () {
                 function GalleryComponent(sandbox) {
                     this.sandbox = sandbox;
-                    this.images = [];
+                    /**
+                     * array of images to display
+                     */
+                    this.imgList = [];
+                    /**
+                     * selected image for show more details
+                     */
+                    this.selectedImg = null;
+                    /**
+                     * show / hide img overlay
+                     */
+                    this.visible = false;
+                    /**
+                     * loader when getting selected img details
+                     */
+                    this.loadingImg = false;
+                    /**
+                     * loader when getting the lis of img
+                     */
+                    this.listLoading = true;
                 }
                 GalleryComponent.prototype.ngOnInit = function () {
                     return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
@@ -684,27 +719,76 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
                                     _a = this;
                                     return [4 /*yield*/, this.sandbox.getList(1, 100)];
                                 case 1:
-                                    _a.images = _b.sent();
+                                    _a.imgList = _b.sent();
                                     return [3 /*break*/, 3];
                                 case 2:
                                     e_1 = _b.sent();
                                     return [3 /*break*/, 3];
-                                case 3: return [2 /*return*/];
+                                case 3:
+                                    this.listLoading = false;
+                                    return [2 /*return*/];
                             }
                         });
                     });
                 };
+                /**
+                 * an cb for img remove
+                 * remove the selected img from the array
+                 * @param image
+                 */
                 GalleryComponent.prototype.onDelete = function (image) {
-                    this.images = this.images.filter(function (item) { return item.id !== image.id; });
+                    this.imgList = this.imgList.filter(function (item) { return item.id !== image.id; });
                 };
+                /**
+                 * an cb for img show more
+                 * extract the id of the img and open the show more overlay
+                 * @param image
+                 */
                 GalleryComponent.prototype.onShowMore = function (image) {
+                    return tslib__WEBPACK_IMPORTED_MODULE_0__["__awaiter"](this, void 0, void 0, function () {
+                        var _a, e_2;
+                        return __generator(this, function (_b) {
+                            switch (_b.label) {
+                                case 0:
+                                    this.visible = true;
+                                    this.loadingImg = true;
+                                    _b.label = 1;
+                                case 1:
+                                    _b.trys.push([1, 3, , 4]);
+                                    _a = this;
+                                    return [4 /*yield*/, this.sandbox.getPhoto(image.id)];
+                                case 2:
+                                    _a.selectedImg = _b.sent();
+                                    return [3 /*break*/, 4];
+                                case 3:
+                                    e_2 = _b.sent();
+                                    return [3 /*break*/, 4];
+                                case 4:
+                                    this.loadingImg = false;
+                                    return [2 /*return*/];
+                            }
+                        });
+                    });
                 };
+                /**
+                 * an cb for img edit
+                 * find the selected img in the array and change the title
+                 * @param $event
+                 */
                 GalleryComponent.prototype.onTitleChanged = function ($event) {
-                    var image = $event.image, title = $event.title;
-                    var originalImage = this.images.find(function (item) { return item.id === image.id; });
+                    var img = $event.img, title = $event.title;
+                    var originalImage = this.imgList.find(function (item) { return item.id === img.id; });
                     if (originalImage) {
                         originalImage.title = title;
                     }
+                };
+                /**
+                 * a cb for the overlay close event
+                 * close overlay and init selected image
+                 */
+                GalleryComponent.prototype.onClose = function () {
+                    this.visible = false;
+                    this.selectedImg = null;
                 };
                 return GalleryComponent;
             }());
@@ -715,6 +799,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
                 Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
                     selector: 'app-gallery',
                     template: tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! raw-loader!./gallery.component.html */ "./node_modules/raw-loader/dist/cjs.js!./src/app/features/gallery/gallery.component.html")).default,
+                    encapsulation: _angular_core__WEBPACK_IMPORTED_MODULE_1__["ViewEncapsulation"].None,
                     styles: [tslib__WEBPACK_IMPORTED_MODULE_0__["__importDefault"](__webpack_require__(/*! ./gallery.component.scss */ "./src/app/features/gallery/gallery.component.scss")).default]
                 })
             ], GalleryComponent);
@@ -757,7 +842,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
                     imports: [
                         _angular_common__WEBPACK_IMPORTED_MODULE_2__["CommonModule"],
                         _gallery_routing_module__WEBPACK_IMPORTED_MODULE_8__["GalleryRoutingModule"],
-                        ng_lazyload_image__WEBPACK_IMPORTED_MODULE_6__["LazyLoadImageModule"],
+                        ng_lazyload_image__WEBPACK_IMPORTED_MODULE_6__["LazyLoadImageModule"].forRoot({}),
                         _angular_forms__WEBPACK_IMPORTED_MODULE_3__["ReactiveFormsModule"],
                         ng_zorro_antd__WEBPACK_IMPORTED_MODULE_4__["NgZorroAntdModule"]
                     ],
@@ -806,6 +891,12 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
                 function GallerySandboxService(galleryService) {
                     this.galleryService = galleryService;
                 }
+                /**
+                 * get a pager options and return img card object
+                 * @param page
+                 * @param perPage
+                 * @param orderBy
+                 */
                 GallerySandboxService.prototype.getList = function (page, perPage, orderBy) {
                     if (page === void 0) { page = 1; }
                     if (perPage === void 0) { perPage = 10; }
@@ -820,6 +911,13 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
                             alt: img.alt_description
                         };
                     }); });
+                };
+                /**
+                 * get a specific photo by id
+                 * @param id
+                 */
+                GallerySandboxService.prototype.getPhoto = function (id) {
+                    return this.galleryService.getPhoto(id);
                 };
                 return GallerySandboxService;
             }());
@@ -850,11 +948,24 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
                 function GalleryService(imgApi) {
                     this.imgApi = imgApi;
                 }
+                /**
+                 * get a pager options and return list of photos from the imgApi
+                 * @param page
+                 * @param perPage
+                 * @param orderBy
+                 */
                 GalleryService.prototype.getList = function (page, perPage, orderBy) {
                     if (page === void 0) { page = 1; }
                     if (perPage === void 0) { perPage = 10; }
                     if (orderBy === void 0) { orderBy = 'latest'; }
                     return this.imgApi.getList(page, perPage, orderBy);
+                };
+                /**
+                 * get a specific photo by id
+                 * @param id
+                 */
+                GalleryService.prototype.getPhoto = function (id) {
+                    return this.imgApi.getPhoto(id);
                 };
                 return GalleryService;
             }());
