@@ -1,0 +1,42 @@
+<nz-card [nzBordered]="false"
+         [nzCover]="coverTemplate"
+         [nzActions]="[actionSetting, actionEdit, actionEllipsis]"
+>
+  <nz-card-meta
+    nzTitle="{{image.title}}"
+  ></nz-card-meta>
+</nz-card>
+<ng-template #coverTemplate>
+  <img src="{{image.pixelSrc}}"/>
+  <img lazyLoad="{{image.src}}" alt="">
+</ng-template>
+<ng-template #actionSetting>
+  <i nz-icon nzType="delete" (click)="onDeleted(image)"></i>
+</ng-template>
+<ng-template #actionEdit>
+  <i nz-icon nzType="edit"
+     nz-popover
+     [nzPopoverContent]="editImageTitleTemplate"
+     [(nzVisible)]="showPopover"
+     nzTitle="Edit image title"
+     nzPopoverTrigger="click">
+  </i>
+</ng-template>
+<ng-template #actionEllipsis>
+  <i nz-icon nzType="more" (click)="onShowMore(image)"></i>
+</ng-template>
+
+<ng-template #editImageTitleTemplate>
+  <form nz-form [formGroup]="titleForm" (ngSubmit)="submitForm(image)" class="image-title-form">
+    <nz-form-item>
+      <nz-form-control nzErrorTip="The title cant be empty">
+        <input type="text" nz-input formControlName="title" placeholder="Insert title" autofocus/>
+      </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+      <nz-form-control>
+        <button nz-button nzType="primary" style="float: right;" [disabled]="titleForm.invalid">Change</button>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+</ng-template>

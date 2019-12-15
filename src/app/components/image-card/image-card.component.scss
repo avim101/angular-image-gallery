@@ -1,0 +1,55 @@
+@import "../../../variables";
+
+:host {
+  width: 100%;
+
+  img {
+    position: absolute;
+    left: 0;
+    top: 0;
+    max-width: 100%;
+    height: inherit;
+  }
+
+
+  .ng-lazyloaded {
+    opacity: 1;
+  }
+
+  ::ng-deep {
+
+    .ant-card {
+      background: transparent;
+    }
+
+    .ant-card-actions {
+      background: transparent;
+      border-top: none;
+
+      > li {
+        i {
+          color: $appBlue;
+        }
+      }
+    }
+
+    .ant-card-body {
+      background: #000;
+      opacity: .5;
+      margin-top: -65px;
+    }
+
+    .ant-card-meta-title {
+      color: #FFFFFF;
+    }
+
+    .ant-card-cover {
+      width: auto;
+      height: 250px;
+    }
+  }
+}
+
+.image-title-form {
+  width: 260px;
+}
