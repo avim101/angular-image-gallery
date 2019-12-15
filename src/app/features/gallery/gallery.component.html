@@ -2,19 +2,21 @@
   <nz-header class="gallery-header">
     <nz-page-header nzTitle="My Gallery" [nzSubtitle]="'Here you can find all your media'"></nz-page-header>
   </nz-header>
-  <nz-content style="min-height: 100vh;">
-    <div nz-row style="max-width: 1280px; margin: 0 auto;">
-      <div nz-col nzXs="12" nzSm="12" nzMd="8" nzLg="6" nzXl="6"
-           style=" padding: 15px; float: left!important;"
-           *ngFor="let img of images">
-        <app-image-card [image]="img"
-                        (deleted)="onDelete($event)"
-                        (showMore)="onShowMore($event)"
-                        (titleChanged)="onTitleChanged($event)">
-        </app-image-card>
+  <nz-spin nzTip="Loading..." [nzSpinning]="listLoading" [nzDelay]="500">
+    <nz-content style="min-height: 100vh;">
+      <div nz-row style="max-width: 1280px; margin: 0 auto;">
+        <div nz-col nzXs="12" nzSm="12" nzMd="8" nzLg="6" nzXl="6"
+             style=" padding: 15px; float: left!important;"
+             *ngFor="let img of imgList">
+          <app-image-card [img]="img"
+                          (deleted)="onDelete($event)"
+                          (showMore)="onShowMore($event)"
+                          (titleChanged)="onTitleChanged($event)">
+          </app-image-card>
+        </div>
       </div>
-    </div>
-  </nz-content>
+    </nz-content>
+  </nz-spin>
 </nz-layout>
 
 <nz-drawer
@@ -25,37 +27,38 @@
   (nzOnClose)="onClose()"
 >
   <div>
-    <nz-skeleton [nzActive]="true" [nzLoading]="loading" [nzParagraph]="{ rows: 10 }">
+    <nz-skeleton [nzActive]="true" [nzLoading]="loadingImg" [nzParagraph]="{ rows: 10 }">
       <nz-card [nzCover]="coverTemplate" [nzBordered]="false">
         <nz-descriptions>
-          <nz-descriptions-item nzTitle="Id: "> {{selectedImage?.id}}</nz-descriptions-item>
+          <nz-descriptions-item nzTitle="Id: "> {{selectedImg?.id}}</nz-descriptions-item>
         </nz-descriptions>
         <nz-descriptions>
-          <nz-descriptions-item nzTitle="Created at: "> {{selectedImage?.created_at | date}}</nz-descriptions-item>
+          <nz-descriptions-item nzTitle="Created at: "> {{selectedImg?.created_at | date}}</nz-descriptions-item>
         </nz-descriptions>
         <nz-descriptions>
-          <nz-descriptions-item nzTitle="Updated at: "> {{selectedImage?.updated_at | date}}</nz-descriptions-item>
+          <nz-descriptions-item nzTitle="Updated at: "> {{selectedImg?.updated_at | date}}</nz-descriptions-item>
         </nz-descriptions>
         <nz-descriptions>
           <nz-descriptions-item nzTitle="Tags: ">
-            <nz-tag style="margin-bottom: 5px;" [nzColor]="'blue'" *ngFor="let tag of selectedImage?.tags">{{tag.title}}</nz-tag>
+            <nz-tag style="margin-bottom: 5px;" [nzColor]="'blue'"
+                    *ngFor="let tag of selectedImg?.tags">{{tag.title}}</nz-tag>
           </nz-descriptions-item>
         </nz-descriptions>
         <ng-template #coverTemplate>
-          <img alt="example" src="{{selectedImage?.urls?.small}}"/>
+          <img alt="example" src="{{selectedImg?.urls?.small}}"/>
         </ng-template>
       </nz-card>
     </nz-skeleton>
     <nz-divider></nz-divider>
-    <nz-skeleton [nzActive]="true" [nzLoading]="loading" [nzAvatar]="true">
+    <nz-skeleton [nzActive]="true" [nzLoading]="loadingImg" [nzAvatar]="true">
       <nz-card [nzBordered]="false">
         <nz-card-meta
           [nzAvatar]="avatarTemplate"
-          [nzTitle]="selectedImage?.user?.name"
-          [nzDescription]="selectedImage?.user?.bio"
+          [nzTitle]="selectedImg?.user?.name"
+          [nzDescription]="selectedImg?.user?.bio"
         ></nz-card-meta>
         <ng-template #avatarTemplate>
-          <nz-avatar [nzSrc]="selectedImage?.user?.profile_image?.medium" nzSize="large"></nz-avatar>
+          <nz-avatar [nzSrc]="selectedImg?.user?.profile_image?.medium" nzSize="large"></nz-avatar>
         </ng-template>
       </nz-card>
     </nz-skeleton>

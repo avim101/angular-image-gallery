@@ -30,6 +30,10 @@ export class GallerySandboxService {
       }));
   }
 
+  /**
+   * get a specific photo by id
+   * @param id
+   */
   public getPhoto(id: string){
     return this.galleryService.getPhoto(id);
   }

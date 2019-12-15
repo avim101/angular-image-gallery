@@ -3,15 +3,15 @@
          [nzHoverable]="true"
 >
   <nz-card-meta
-    nzTitle="{{image.title}}"
+    nzTitle="{{img.title}}"
   ></nz-card-meta>
 </nz-card>
 <ng-template #coverTemplate>
-  <img src="{{image.pixelSrc}}"/>
-  <img lazyLoad="{{image.src}}">
+  <img src="{{img.pixelSrc}}"/>
+  <img lazyLoad="{{img.src}}">
 </ng-template>
 <ng-template #actionSetting>
-  <i nz-icon nzType="delete" (click)="onDeleted(image)"></i>
+  <i nz-icon nzType="delete" (click)="onDeleted(img)"></i>
 </ng-template>
 <ng-template #actionEdit>
   <i nz-icon nzType="edit"
@@ -23,11 +23,11 @@
   </i>
 </ng-template>
 <ng-template #actionEllipsis>
-  <i nz-icon nzType="more" (click)="onShowMore(image)"></i>
+  <i nz-icon nzType="more" (click)="onShowMore(img)"></i>
 </ng-template>
 
 <ng-template #editImageTitleTemplate>
-  <form nz-form [formGroup]="titleForm" (ngSubmit)="submitForm(image)" class="image-title-form">
+  <form nz-form [formGroup]="titleForm" (ngSubmit)="submitForm(img)" class="image-title-form">
     <nz-form-item>
       <nz-form-control nzErrorTip="The title cant be empty">
         <input type="text" nz-input formControlName="title" placeholder="Insert title" autofocus/>

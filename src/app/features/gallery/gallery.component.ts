@@ -15,15 +15,27 @@ export class GalleryComponent implements OnInit {
   /**
    * array of images to display
    */
-  images: ImageCard[] = [];
+  imgList: ImageCard[] = [];
 
   /**
    * selected image for show more details
    */
-  selectedImage: any = null;
+  selectedImg: any = null;
 
+  /**
+   * show / hide img overlay
+   */
   visible = false;
-  loading = false;
+
+  /**
+   * loader when getting selected img details
+   */
+  loadingImg = false;
+
+  /**
+   * loader when getting the lis of img
+   */
+  listLoading = true;
 
   constructor(private sandbox: GallerySandboxService) {
 
@@ -31,10 +43,11 @@ export class GalleryComponent implements OnInit {
 
   async ngOnInit() {
     try {
-      this.images = await this.sandbox.getList(1, 100);
+      this.imgList = await this.sandbox.getList(1, 100);
     } catch (e) {
       // error handling
     }
+    this.listLoading = false;
   }
 
   /**
@@ -43,7 +56,7 @@ export class GalleryComponent implements OnInit {
    * @param image
    */
   public onDelete(image: ImageCard) {
-    this.images = this.images.filter(item => item.id !== image.id);
+    this.imgList = this.imgList.filter(item => item.id !== image.id);
   }
 
   /**
@@ -53,13 +66,13 @@ export class GalleryComponent implements OnInit {
    */
   public async onShowMore(image: ImageCard) {
     this.visible = true;
-    this.loading = true;
+    this.loadingImg = true;
     try {
-      this.selectedImage = await this.sandbox.getPhoto(image.id);
+      this.selectedImg = await this.sandbox.getPhoto(image.id);
     } catch (e) {
       // error
     }
-    this.loading = false;
+    this.loadingImg = false;
   }
 
   /**
@@ -68,15 +81,19 @@ export class GalleryComponent implements OnInit {
    * @param $event
    */
   public onTitleChanged($event) {
-    const { image, title } = $event;
-    let originalImage = this.images.find(item => item.id === image.id);
+    const { img, title } = $event;
+    let originalImage = this.imgList.find(item => item.id === img.id);
     if (originalImage) {
       originalImage.title = title;
     }
   }
 
+  /**
+   * a cb for the overlay close event
+   * close overlay and init selected image
+   */
   onClose() {
     this.visible = false;
-    this.selectedImage = null;
+    this.selectedImg = null;
   }
 }

@@ -1,7 +1,7 @@
 /**
- * the idea behind this service is to be able to get a different api providers for images (e.g unsplash, shutterstock and others)
+ * The idea behind this service is to be able to get a different api providers for images (e.g unsplash, shutterstock and others)
  * but wrap them in a single service and expose the same api for all of them,
- * this is an advanced angular implementation i will be happy to elaborate if needed
+ * I will be happy to elaborate if needed
  */
 // ANGULAR
 import { Inject, Injectable, Optional } from '@angular/core';
@@ -47,10 +47,20 @@ export class ImageService {
 
   }
 
+  /**
+   * get a pager options and return list of photos from img provider api
+   * @param page
+   * @param perPage
+   * @param orderBy
+   */
   public getList(page: number = 1, perPage: number = 10, orderBy: 'latest' | 'oldest' | 'popular' = 'latest'): Promise<any> {
     return this.api.photos.listPhotos(page, perPage, orderBy).then(toJson);
   }
 
+  /**
+   * get a specific photo by id
+   * @param id
+   */
   public getPhoto(id: string): Promise<any> {
     return this.api.photos.getPhoto(id).then(toJson);
   }

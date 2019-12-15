@@ -22,14 +22,14 @@ export class ImageCardComponent implements OnInit {
   public showPopover = false;
 
   /**
-   * image title
+   * img title
    */
-  @Input() public image: ImageCard;
+  @Input() public img: ImageCard;
 
   /**
    * fire event when title changed
    */
-  @Output() public titleChanged = new EventEmitter<{ image: ImageCard, title: string }>();
+  @Output() public titleChanged = new EventEmitter<{ img: ImageCard, title: string }>();
 
   /**
    * fire event when image is deleted
@@ -50,36 +50,36 @@ export class ImageCardComponent implements OnInit {
    */
   ngOnInit() {
     this.titleForm = this.formBuilder.group({
-      title: [ this.image.title, Validators.required ],
+      title: [ this.img.title, Validators.required ],
     });
   }
 
   /**
    * emit the deleted img when delete icon is clicked
-   * @param image
+   * @param img
    */
-  public onDeleted(image: ImageCard) {
-    this.deleted.emit(image);
+  public onDeleted(img: ImageCard) {
+    this.deleted.emit(img);
   }
 
   /**
    * emit the deleted img when show more icon is clicked
-   * @param image
+   * @param img
    */
-  public onShowMore(image: ImageCard) {
-    this.showMore.emit(image);
+  public onShowMore(img: ImageCard) {
+    this.showMore.emit(img);
   }
 
   /**
    * emit the editable img with the text to replace the title
    * emit only if the form is valid
-   * @param image
+   * @param img
    */
-  public submitForm(image: ImageCard) {
+  public submitForm(img: ImageCard) {
     if (this.titleForm.valid) {
       this.showPopover = false;
       // fire title changed with the new value
-      this.titleChanged.emit({ image, title: this.titleForm.controls['title'].value });
+      this.titleChanged.emit({ img, title: this.titleForm.controls['title'].value });
     }
   }
 }

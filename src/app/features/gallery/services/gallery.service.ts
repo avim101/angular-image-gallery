@@ -20,6 +20,10 @@ export class GalleryService {
     return this.imgApi.getList(page, perPage, orderBy);
   }
 
+  /**
+   * get a specific photo by id
+   * @param id
+   */
   public getPhoto(id: string): Promise<any> {
     return this.imgApi.getPhoto(id)
   }
