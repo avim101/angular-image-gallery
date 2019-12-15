@@ -1,1 +1,18 @@
-<p>gallery works!</p>
+<nz-layout>
+  <nz-header class="gallery-header" >
+    <nz-page-header nzTitle="My Gallery" [nzSubtitle]="'Here you can find all your media'"></nz-page-header>
+  </nz-header>
+  <nz-content style="min-height: 100vh;">
+    <div nz-row style="max-width: 1280px; margin: 0 auto;">
+      <div nz-col nzXs="12" nzSm="12" nzMd="8" nzLg="6" nzXl="6"
+           style=" padding: 15px; float: left!important;"
+           *ngFor="let img of images">
+        <app-image-card [image]="img"
+                        (deleted)="onDelete($event)"
+                        (showMore)="onShowMore($event)"
+                        (titleChanged)="onTitleChanged($event)">
+        </app-image-card>
+      </div>
+    </div>
+  </nz-content>
+</nz-layout>

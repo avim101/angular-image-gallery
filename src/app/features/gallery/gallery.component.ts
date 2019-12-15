@@ -1,6 +1,9 @@
 // ANGULAR
 import { Component, OnInit } from '@angular/core';
-import { ImageService } from '../../share/services/image.service';
+
+// APP
+import { ImageCard } from '../../components/image-card';
+import { GallerySandboxService } from './services/gallery.sandbox.service';
 
 @Component({
   selector: 'app-gallery',
@@ -8,12 +11,33 @@ import { ImageService } from '../../share/services/image.service';
   styleUrls: [ './gallery.component.scss' ]
 })
 export class GalleryComponent implements OnInit {
+  images: ImageCard[] = [];
 
-  constructor(private img: ImageService) {
-    console.log(this.img);
+  constructor(private sandbox: GallerySandboxService) {
+
   }
 
-  ngOnInit() {
+  async ngOnInit() {
+    try {
+      this.images = await this.sandbox.getList(1, 100);
+    } catch (e) {
+      // error handling
+    }
   }
 
+  public onDelete(image: ImageCard) {
+    this.images = this.images.filter(item => item.id !== image.id);
+  }
+
+  public onShowMore(image: ImageCard) {
+
+  }
+
+  public onTitleChanged($event) {
+    const { image, title } = $event;
+    let originalImage = this.images.find(item => item.id === image.id);
+    if (originalImage) {
+      originalImage.title = title;
+    }
+  }
 }

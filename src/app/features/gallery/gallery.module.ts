@@ -1,25 +1,41 @@
 // ANGULAR
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
+
+// VENDORS
+import {
+  NgZorroAntdModule,
+  NZ_ICONS
+} from 'ng-zorro-antd';
+import { DeleteOutline, EditOutline, MoreOutline } from '@ant-design/icons-angular/icons';
+import { IconDefinition } from '@ant-design/icons-angular';
+import { LazyLoadImageModule } from 'ng-lazyload-image';
 
 // APP
 import { GalleryComponent } from './gallery.component';
 import { GalleryRoutingModule } from './gallery-routing.module';
-import { ImageService, PROVIDER_LIST } from '../../share/services/image.service';
+import { ImageCardComponent } from '../../components/image-card';
 
+
+const icons: IconDefinition[] = [ DeleteOutline, EditOutline, MoreOutline ];
 
 @NgModule({
-  declarations: [ GalleryComponent ],
+  declarations: [
+    GalleryComponent,
+    ImageCardComponent
+  ],
   imports: [
     CommonModule,
-    GalleryRoutingModule
+    GalleryRoutingModule,
+    LazyLoadImageModule,
+    ReactiveFormsModule,
+    NgZorroAntdModule
   ],
   providers: [
-    ImageService,
     {
-      provide: 'imageProvider',
-      useValue: PROVIDER_LIST.UNSPLASH
-    },
+      provide: NZ_ICONS, useValue: icons
+    }
   ]
 })
 export class GalleryModule {

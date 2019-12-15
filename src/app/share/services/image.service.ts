@@ -23,7 +23,7 @@ export const PROVIDER_LIST = {
  * create a map between each provider and his configuration
  */
 const providersConfig = new Map();
-providersConfig.set(PROVIDER_LIST.UNSPLASH, { accessKey: environment.unsplash.accessKey });
+providersConfig.set(PROVIDER_LIST.UNSPLASH, { accessKey: environment.unsplash.accessKey, secret: environment.unsplash.secretKey });
 
 
 @Injectable({
@@ -38,16 +38,16 @@ export class ImageService {
    * @param options as configuration object for the provider
    */
   constructor(
-    @Inject('imageProvider') @Optional() public imageProvider?: string,
-    @Inject('options') @Optional() public options?: string,
+    @Inject('imageProvider') @Optional() public imageProvider?: any,
+    @Inject('options') @Optional() public options?: any,
   ) {
-    this.imageProvider = this.imageProvider || PROVIDER_LIST.UNSPLASH;
-    this.options = this.options || providersConfig.get(this.imageProvider);
-    this.api = new (this.imageProvider as any)(this.options);
+    this.imageProvider = imageProvider || PROVIDER_LIST.UNSPLASH;
+    this.options = options || providersConfig.get(this.imageProvider);
+    this.api = new this.imageProvider(this.options);
 
   }
 
-  public async getList(page: number = 1, perPage: number = 10, orderBy: 'latest' | 'oldest' | 'popular' = 'latest'): Promise<any> {
-    return this.api.photos.listPhotos(page, perPage, orderBy).than(toJson);
+  public getList(page: number = 1, perPage: number = 10, orderBy: 'latest' | 'oldest' | 'popular' = 'latest'): Promise<any> {
+    return this.api.photos.listPhotos(page, perPage, orderBy).then(toJson);
   }
 }
